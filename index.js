@@ -18,57 +18,9 @@ const io = socketio(server)
 app.use(cors())
 
 
-
-
 io.on('connection', socket =>{
 
     socket.on('fetchData', async () => {
-
-
-        // var config = {
-        //     method: 'get',
-        //     url: 'https://zccparthzendeskchallenge.zendesk.com/api/v2/requests.json',
-        //     headers: { 
-        //     'Authorization': 'Basic YW1pbnBhcnRoMzY5QGdtYWlsLmNvbTpQYWNlMTkyODM3IQ==', 
-        //     'Cookie': '__cfruid=649a9872ba15adc01dea0a2312a3bcd7b72a7d06-1638288748'
-        //     }
-        // };
-
-        // var config = {
-        //     method: 'get',
-        //     url: 'https://zccparthzendeskchallenge.zendesk.com/api/v2/tickets.json',
-        //     headers: { 
-        //       'Authorization': 'Basic YW1pbnBhcnRoMzY5QGdtYWlsLmNvbTpQYWNlMTkyODM3IQ==', 
-        //       'Cookie': '__cfruid=266f4bc4692cc4fbc88a7167f9d96466e32cc87e-1638388272'
-        //     }
-        // };
-        
-        // axios(config)
-        // .then(function (response) {
-        //     var flag = false
-        //     var page = 1
-        //     const tickets = response.data.tickets
-        //     if (response.data.next_page) {
-        //         flag = true
-        //         page += 1
-        //     }
-
-        //     // console.log(tickets)
-        // for (var i = 0; i < tickets.length; i++) {
-        //     d[counter].push(tickets[i])
-        //     if (accumulator == 24){
-        //         accumulator = 0
-        //         counter += 1
-        //         d[counter] = []
-        //     } else {
-        //         accumulator += 1
-        //     }
-        // }
-        // socket.emit('retreiveData', {d})
-        // })
-        // .catch(function (error) {
-        //     console.log(error.message)
-        // });
 
         const fetchTickets = (tickets, page) => {
 

@@ -37,6 +37,10 @@ import {
   useDisclosure
 } from '@chakra-ui/react'
 
+import PageSelect from './Components/PageSelect';
+import TicketInfoCard from './Components/TicketInfoCard';
+import TicketTable from './Components/TicketTable';
+
 function App() {
 
   const [loading, setLoading] = useState(true)
@@ -88,11 +92,6 @@ function App() {
     onOpen()
   }
 
-  const getLocalDate = (d) => {
-    const event = new Date(d)
-    return event.toLocaleDateString()
-  }
-
   console.log(ticketInfo)
 
   if (loading) {
@@ -113,66 +112,67 @@ function App() {
     )
   } else {
       return (
-        <Router>
-            <>
-              <Navbar />
-              <Box w="90%" m="auto" mt="4%">
-                <Select w="15%" ml="5%" onChange={(e) => setPage(e.target.value)}>
-                  {Object.keys(data).map((k) => {
-                    if (data[k].length > 0) {
-                      return <option value={k}>{"Page " + k}</option>
-                    }
+          <>
+            <Navbar />
+            <Box w="90%" m="auto" mt="4%">
+              {/* <Select w="15%" ml="5%" onChange={(e) => setPage(e.target.value)}>
+                {Object.keys(data).map((k) => {
+                  if (data[k].length > 0) {
+                    return <option value={k}>{"Page " + k}</option>
+                  }
+                })}
+              </Select>
+              <Table variant='simple' style={{width: "90%", margin: 'auto', marginBottom: '5%', marginTop: "3%"}}>
+                <Thead>
+                  <Tr>
+                    <Th>ID</Th>
+                    <Th>Subject</Th>
+                    <Th isNumeric>Updated</Th>
+                  </Tr>
+                </Thead>
+                <Tbody>
+                  {data[page].map((info) => {
+                    return (                    
+                      <Tr 
+                      onClick={() => setDetails(info.assignee_id, info.id, info.subject, info.description, info.organization_id)}
+                      _hover={{
+                        cursor: "pointer",
+                        background: "#E2E8F0"
+                      }}
+                      >
+                      <Th>{info.id}</Th>
+                      <Th>{info.subject}</Th>
+                      <Th isNumeric>{getLocalDate(info.updated_at)}</Th>
+                      </Tr>
+                    )
                   })}
-                </Select>
-                <Table variant='simple' style={{width: "90%", margin: 'auto', marginBottom: '5%', marginTop: "3%"}}>
-                  <Thead>
-                    <Tr>
-                      <Th>ID</Th>
-                      <Th>Subject</Th>
-                      <Th isNumeric>Updated</Th>
-                    </Tr>
-                  </Thead>
-                  <Tbody>
-                    {data[page].map((info) => {
-                      return (                    
-                        <Tr 
-                        onClick={() => setDetails(info.assignee_id, info.id, info.subject, info.description, info.organization_id)}
-                        _hover={{
-                          cursor: "pointer",
-                          background: "#E2E8F0"
-                        }}
-                        >
-                        <Th>{info.id}</Th>
-                        <Th>{info.subject}</Th>
-                        <Th isNumeric>{getLocalDate(info.updated_at)}</Th>
-                        </Tr>
-                      )
-                    })}
-                  </Tbody>
-                </Table>
-              </Box>
-              <Modal isOpen={isOpen} onClose={onClose}>
-                  <ModalOverlay />
-                  <ModalContent>
-                    <ModalHeader>
-                      {"Assignee: " + ticketInfo.assignee}
-                    </ModalHeader>
-                    <ModalBody>
-                      {"Organization: " + ticketInfo.organization}
-                    </ModalBody>
-                    <ModalBody>
-                      {"Subject: " + ticketInfo.subject}
-                    </ModalBody>
-                    <ModalBody>
-                      {ticketInfo.description}
-                    </ModalBody>
-                    <ModalFooter>
-                      <Button bg="#A0AEC0" onClick={onClose} mr={3} style={{marginBottom: "5%"}}>Close</Button>
-                    </ModalFooter>
-                  </ModalContent>
-              </Modal>
-            </>
-        </Router>
+                </Tbody>
+              </Table> */}
+              <PageSelect dic={data} setPage={setPage} />
+              <TicketTable dic={data} page={page} setDetails={setDetails} />
+            </Box>
+            {/* <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                  <ModalHeader>
+                    {"Assignee: " + ticketInfo.assignee}
+                  </ModalHeader>
+                  <ModalBody>
+                    {"Organization: " + ticketInfo.organization}
+                  </ModalBody>
+                  <ModalBody>
+                    {"Subject: " + ticketInfo.subject}
+                  </ModalBody>
+                  <ModalBody>
+                    {ticketInfo.description}
+                  </ModalBody>
+                  <ModalFooter>
+                    <Button bg="#A0AEC0" onClick={onClose} mr={3} style={{marginBottom: "5%"}}>Close</Button>
+                  </ModalFooter>
+                </ModalContent>
+            </Modal> */}
+            <TicketInfoCard isOpen={isOpen} onClose={onClose} ticketInfo={ticketInfo} />
+          </>
       );
   }
 
